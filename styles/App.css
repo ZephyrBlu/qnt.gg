@@ -1,12 +1,16 @@
 .App {
+    width: 40%;
+    margin: 0 auto;
 }
 
 .App__header {
+    margin: 20px auto 40px;
+}
+
+.App__title {
     width: max-content;
-    margin: 20px auto;
 }
 
 .App__page {
-    width: 40%;
-    margin: 0 auto;
+    line-height: 1.5;
 }

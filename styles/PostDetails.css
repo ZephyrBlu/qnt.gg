@@ -1,10 +1,14 @@
 .PostDetails {
     display: grid;
-    grid-template: repeat(3, max-content) / 1fr;
-    grid-template-areas: 'heading dates';
+    grid-template: repeat(2, max-content) / 1fr;
+    grid-template-areas:
+    'title'
+    'dates';
+    margin-bottom: 20px;
 }
 
 .PostDetails--preview {
+    grid-template: repeat(3, max-content) / 1fr;
     grid-template-areas:
     'title'
     'dates'
@@ -17,10 +21,14 @@
 
 .PostDetails__blurb {
     grid-area: blurb;
+    margin-top: 20px;
+    font-weight: 500;
 }
 
 .PostDetails__date-wrapper {
     grid-area: dates;
+    color: var(--grey);
+    font-weight: 500;
 }
 
 .PostDetails__date {

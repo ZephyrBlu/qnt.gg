@@ -12,7 +12,7 @@ const Home = ({ posts }) => {
     return (
         <div className="Home">
             <Head>
-                <title>My First Post</title>
+                <title>Quantitative Analysis of Gaming | qnt.gg</title>
                 <meta name="viewport" content="initial-scale=1.0, width=device-width" />
             </Head>
             {postDetails.map(([componentName, postDetails]) => (
