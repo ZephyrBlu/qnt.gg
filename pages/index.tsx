@@ -1,6 +1,7 @@
 import { promises as fs } from 'fs';
 import path from 'path';
 import { Fragment } from 'react';
+import Head from 'next/head';
 import * as postDetailObjects from './blog';
 
 const Home = ({ posts }) => {
@@ -10,6 +11,10 @@ const Home = ({ posts }) => {
 
     return (
         <div className="Home">
+            <Head>
+                <title>My First Post</title>
+                <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+            </Head>
             {postDetails.map(([componentName, postDetails]) => (
                 <Fragment key={posts[componentName]}>
                     {postDetails(true, `/blog/${posts[componentName]}`)}

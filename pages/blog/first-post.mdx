@@ -1,5 +1,4 @@
 import { Fragment } from 'react';
-import Head from 'next/head';
 import PostDetails from '../../PostDetails';
 
 export const postDetails = (preview = false, postPath = '') => (
@@ -12,10 +11,6 @@ export const postDetails = (preview = false, postPath = '') => (
         updatedAt="Today"
     />
 );
-
-<Head>
-    <title>My First Post</title>
-</Head>
 
 <Fragment>{postDetails()}</Fragment>
 
