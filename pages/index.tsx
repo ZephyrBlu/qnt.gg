@@ -1,14 +1,19 @@
 import { promises as fs } from 'fs';
 import path from 'path';
+import { Fragment } from 'react';
 import * as postDetailObjects from './blog';
 
 const Home = ({ posts }) => {
-    const postDetails = Object.entries(postDetailObjects);
+    const postDetails = Object.entries(postDetailObjects).filter(([name, component]) => (
+        name !== 'default'
+    ));
 
     return (
         <div className="Home">
             {postDetails.map(([componentName, postDetails]) => (
-                postDetails(true, `/blog/${posts[componentName]}`)
+                <Fragment key={posts[componentName]}>
+                    {postDetails(true, `/blog/${posts[componentName]}`)}
+                </Fragment>
             ))}
         </div>
     );

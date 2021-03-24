@@ -1,7 +1,8 @@
 import { Fragment } from 'react';
+import Head from 'next/head';
 import PostDetails from '../../PostDetails';
 
-export const postDetails = (preview = false, postPath) => (
+export const postDetails = (preview = false, postPath = '') => (
     <PostDetails
         preview={preview}
         path={postPath}
@@ -12,6 +13,10 @@ export const postDetails = (preview = false, postPath) => (
     />
 );
 
-# Hello world
+<Head>
+    <title>My First Post</title>
+</Head>
 
-<Fragment>{postDetails}</Fragment>
+<Fragment>{postDetails()}</Fragment>
+
+### Write the post here
