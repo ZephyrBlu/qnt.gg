@@ -1,11 +1,14 @@
 import { Fragment } from 'react';
 import PostDetails from '../../PostDetails';
 
-export const postDetails = (
+export const postDetails = (preview = false, postPath) => (
     <PostDetails
+        preview={preview}
+        path={postPath}
         title="My first post"
         subtitle="Some text goes here"
-        postedAt="Today"
+        postedAt="Yesterday"
+        updatedAt="Today"
     />
 );
 

@@ -1,30 +1,32 @@
-const PostDetails = ({ title, subtitle, postedAt, updatedAt }: {
+import Link from 'next/link';
+
+const PostDetails = ({ preview, path, title, subtitle, postedAt, updatedAt }: {
+    preview?: boolean,
+    path: string,
     title: string,
     subtitle: string,
     postedAt: string,
     updatedAt?: string,
 }) => (
-    <div className="Post">
-        <div className="Post__details">
-            <div className="Post__heading">
-                <h1 className="Post__title">
-                    {title}
-                </h1>
-                {subtitle &&
-                    <h3 className="Post__subtitle">
-                        {subtitle}
-                    </h3>}
+    <div className={`PostDetails ${preview ? 'PostDetails--preview': ''}`}>
+        <Link href={path}>
+            <h1 className="PostDetails__title">
+                <a>{title}</a>
+            </h1>
+        </Link>
+        {subtitle &&
+            <h3 className="PostDetails__blurb">
+                {subtitle}
+            </h3>}
+        <div className="PostDetails__date-wrapper">
+            <div className="PostDetails__date Post__date--posted">
+                Posted: {postedAt}
             </div>
-            <div className="Post__date-wrapper">
-                <div className="Post__date Post__date--posted">
-                    {postedAt}
-                </div>
-                {updatedAt &&
-                    <div className="Post__date Post__date--updated">
-                        {updatedAt}
-                    </div>}
-                </div>
-        </div>
+            {updatedAt &&
+                <div className="PostDetails__date Post__date--updated">
+                    (Last Updated: {updatedAt})
+                </div>}
+            </div>
     </div>
 );
 

@@ -1,6 +1,5 @@
 import { promises as fs } from 'fs';
 import path from 'path';
-import Link from 'next/link';
 import * as postDetailObjects from './blog';
 
 const Home = ({ posts }) => {
@@ -9,11 +8,7 @@ const Home = ({ posts }) => {
     return (
         <div className="Home">
             {postDetails.map(([componentName, postDetails]) => (
-                <Link key={posts[componentName]} href={`/${posts[componentName]}`}>
-                    <a>
-                        {postDetails}
-                    </a>
-                </Link>
+                postDetails(true, `/blog/${posts[componentName]}`)
             ))}
         </div>
     );
@@ -24,18 +19,24 @@ export async function getStaticProps() {
     const componentPostNameMap = await fs.readdir(postsDir).then((postNames) => {
         const componentNameMap = {};
         postNames.forEach((name) => {
+            // don't care about index file
             if (name === 'index.js') {
                 return;
             }
             // discard file extension
             const noExt = name.split('.')[0];
+
+            // split on hyphen, capitalize to camelcase, then rejoin
             const componentName = noExt.split('-').map((part, index) => {
+                // first part of name does not need to be capitalized
                 if (index !== 0) {
                     return part.charAt(0).toUpperCase() + part.slice(1);
                 }
                 return part;
             }).join('');
-            componentNameMap[componentName] = name;
+
+            // map camelcase component name to hyphenated page name without extension
+            componentNameMap[componentName] = noExt;
         });
         return componentNameMap;
     });

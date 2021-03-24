@@ -2,10 +2,11 @@
 }
 
 .App__header {
-    margin: 10px 0 20px;
+    width: max-content;
+    margin: 20px auto;
 }
 
 .App__page {
-    width: 80%;
+    width: 40%;
     margin: 0 auto;
 }

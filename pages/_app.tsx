@@ -1,7 +1,7 @@
 import type { AppProps } from 'next/app';
 import '../styles/globals.css'
 import '../styles/App.css';
-import '../styles/Post.css';
+import '../styles/PostDetails.css';
 
 const App = ({ Component, pageProps }: AppProps) => (
     <div className="App">

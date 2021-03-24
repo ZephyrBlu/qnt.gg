@@ -1,0 +1,40 @@
+.PostDetails {
+    display: grid;
+    grid-template: repeat(3, max-content) / 1fr;
+    grid-template-areas: 'heading dates';
+}
+
+.PostDetails--preview {
+    grid-template-areas:
+    'title'
+    'dates'
+    'blurb';
+}
+
+.PostDetails__title {
+    grid-area: title;
+}
+
+.PostDetails__blurb {
+    grid-area: blurb;
+}
+
+.PostDetails__date-wrapper {
+    grid-area: dates;
+}
+
+.PostDetails__date {
+    display: inline-block;
+}
+
+.PostDetails__date:first-child {
+    margin-right: 10px;
+}
+
+.PostDetails__title {
+
+}
+
+.PostDetails__subtitle {
+
+}
