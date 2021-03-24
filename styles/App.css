@@ -1,0 +1,11 @@
+.App {
+}
+
+.App__header {
+    margin: 10px 0 20px;
+}
+
+.App__page {
+    width: 80%;
+    margin: 0 auto;
+}
