@@ -1,1 +1,1 @@
-export const TAGLINE = 'Quantitative Analysis of Gaming';
+export const TAGLINE = 'Quantitative Analysis for Gaming';

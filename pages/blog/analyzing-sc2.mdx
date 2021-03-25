@@ -1,0 +1,122 @@
+import { Fragment } from 'react';
+import PostDetails from '../../components/PostDetails';
+
+export const postDetails = (preview = false, postPath = '') => (
+    <PostDetails
+        preview={preview}
+        path={postPath}
+        title="2 Years of Analyzing StarCraft 2"
+        blurb=""
+        postedAt="25/03/21"
+    />
+);
+
+<Fragment>{postDetails()}</Fragment>
+
+## In The Beginning
+
+For a couple of years now I've been focusing my energy on thinking about how to
+analyze StarCraft 2 (SC2).
+
+[I built tooling](https://github.com/ZephyrBlu/zephyrus-sc2-parser) to help me
+extract data from games, created [my own analysis website](https://zephyrus.gg)
+and have shared many different experimental analyses with the SC2 community
+on the /r/starcraft subreddit.
+
+At first it was just for fun because I like playing around with data, but in the last year
+I've tried to hone in on how I can help players intuitively understand the game and
+how to improve.
+
+This is a tough problem. SC2 is complicated and highly contextual. Giving advice to other
+players can be difficult because of the large amount of caveats based on the situation.
+
+Traditionally, analysis for video games has been limited to basic summary statistics.
+Analysis websites basically give you a spreadsheet of numbers and it's up to you to work things out.
+Needless to say, this isn't very helpful.
+
+But how can we improve this?
+
+## The Problem 
+
+First of all, why *aren't* summary statistics good enough?
+
+I think the main reason is **context**, or lack thereof. SC2 is highly contextual and a
+large component of skill is **game sense** (I.e. being able to read the state of the game).
+
+A few numbers summarizing the game has almost *zero* context, so it's very hard to derive
+meaningful insights from the them. This is why the recommended approach for players trying to
+improve is to **analyze their replays**.
+
+When you watch a replay, you have the full context of the game. You can see that 6 minutes into
+the game you only had 30 workers, which makes the fact that you produced a total of 100 workers irrelevant!
+
+So on one end of the context spectrum we have summary statistics (**Low context**), and on the other end
+we have replays (**High context**).
+
+However, in some ways we have traded our original problem for a new one. If you've ever tried to "git gud"
+at something, you will have experienced the feeling of not knowing what you're doing wrong.
+You know you suck ([Or maybe you don't](https://en.wikipedia.org/wiki/Dunning%E2%80%93Kruger_effect)),
+but you don't know what you have to do to improve.
+
+Context is great, but only if you have the game sense to interpret it. Without a base level of
+game knowledge it's hard to pinpoint where things went wrong in a game, even if you watch the replay.
+It's not uncommon to see players ask something along the lines of, "what do I look for when I'm analyzing my replays?".
+
+This is because the context of a game is noisy. There are a lot of things happening, but only a few of those things
+are important for analyzing your games. We need to strike a balance between the **high context** of games and
+the **low context** of raw numbers, while presenting the information in an understandable manner.
+
+## Another Problem: Consistency
+
+So far I've discussed making contextual information more accessible for players who don't
+already have much game sense, but what about mid skill players who have *some* game sense
+and high skill players with strong game sense?
+
+Along with context, another important aspect of SC2 is **consistency**. Once you reach a
+particular skill level, the consistency of your execution becomes extremely important.
+
+Though paradoxically once consistency becomes important, being able to filter highly contextual
+information becomes less useful. To improve your consistency, you have to analyze your play
+over *many* games so being able to understand what went wrong in any particular game is not
+as useful.
+
+If you play 10 games then analyze them and find different mistakes in each game, how do you
+decide which mistake to focus on fixing? The large number of possible strategies in the game
+makes this situation quite common.
+
+The only approach I've seen to improving your consistency is to choose a specific area of
+the game to focus on and make that your sole objective, then repeat this. This does work,
+but it can be hard to figure out what the most important areas of your play to focus on are.
+
+## Solutions
+
+All of this talk is great, but what really matters is getting shit done. So here are some ideas
+I'm actively refining and implementing to present highly contextual information in an
+understandable way, and to analyze the consistency of players over many games.
+
+### Context
+
+- Default to charting stats over time to preserve context
+- Provide comprehensive information about the game state to preserve context
+- Make hidden information such as worker production queues and Creep Tumors Killed accessible
+
+### Consistency
+
+- Show distributions of stats over many games rather than average numbers
+    - Allows players to visually see how consistent they are
+
+- Aggregate time series data (I.e. game timelines) across many games to find player tendencies while preserving contextual information
+    - **Tendencies**
+        - What time in the game do you tend to be supply blocked?
+        - What time in the game do you tend to float resources?
+
+    - **Context**
+        - When you're supply blocked/floating resources, what happened in the previous few seconds?
+            - What units/buildings died?
+            - What units/buildings were created?
+            - Which units/buildings did you select?
+
+- Use Time Series and Deep Learning techniques to simulate games
+    - Specifically, ARIMA/GARCH and LSTMs
+    - Simulate large amounts of games to analyze player tendencies
+    - Simulate playouts of games to determine when a player lost/gained an advantage
