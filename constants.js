@@ -1,0 +1,1 @@
+export const TAGLINE = 'Quantitative Analysis of Gaming';

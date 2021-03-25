@@ -2,23 +2,25 @@ import { promises as fs } from 'fs';
 import path from 'path';
 import { Fragment } from 'react';
 import Head from 'next/head';
+import { TAGLINE } from '../constants';
 import * as postDetailObjects from './blog';
 
 const Home = ({ posts }) => {
-    const postDetails = Object.entries(postDetailObjects).filter(([name, component]) => (
+    const postDetails = Object.entries(postDetailObjects).filter(([name, _]) => (
         name !== 'default'
     ));
 
     return (
         <div className="Home">
             <Head>
-                <title>Quantitative Analysis of Gaming | qnt.gg</title>
+                <title>{TAGLINE} | qnt.gg</title>
                 <meta name="viewport" content="initial-scale=1.0, width=device-width" />
             </Head>
             {postDetails.map(([componentName, postDetails]) => (
-                <Fragment key={posts[componentName]}>
-                    {postDetails(true, `/blog/${posts[componentName]}`)}
-                </Fragment>
+                componentName in posts &&
+                    <Fragment key={posts[componentName]}>
+                        {postDetails(true, `/blog/${posts[componentName]}`)}
+                    </Fragment>
             ))}
         </div>
     );
@@ -30,7 +32,7 @@ export async function getStaticProps() {
         const componentNameMap = {};
         postNames.forEach((name) => {
             // don't care about index file
-            if (name === 'index.js') {
+            if (name === 'index.js' || name.slice(0, 4) === 'WIP-') {
                 return;
             }
             // discard file extension

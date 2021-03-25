@@ -1,0 +1,30 @@
+import { Fragment } from 'react';
+import PostDetails from '../../components/PostDetails';
+
+export const postDetails = (preview = false, postPath = '') => (
+    <PostDetails
+        preview={preview}
+        path={postPath}
+        title="What I Learned From Studying Quant Finance"
+        blurb=""
+        postedAt="WIP"
+    />
+);
+
+<Fragment>{postDetails()}</Fragment>
+
+For a couple of years now I've been focusing my energy on thinking about how to
+analyze video games, specifically StarCraft 2 (SC2).
+
+[I built tooling](https://github.com/ZephyrBlu/zephyrus-sc2-parser) to help me
+extract data from games, created [my own analysis website](https://zephyrus.gg)
+and have shared many different experimental analyses with the SC2 community
+on the /r/starcraft subreddit.
+
+At first it was just for fun because I like playing around with data, but more recently
+I've been thinking a lot about how I can help players intuitively understand the game and
+how to improve.
+
+This is a tough problem. SC2 is complicated and highly contextual. Even giving advice to other
+players can be difficult because of the large amount of caveats based on the situation.
+

@@ -1,8 +1,11 @@
 import type { AppProps } from 'next/app';
 import Link from 'next/link';
+import { MDXProvider } from '@mdx-js/react';
+import LinkToNewTab from '../components/LinkToNewTab';
+import { TAGLINE } from '../constants';
 import '../styles/globals.css'
 import '../styles/App.css';
-import '../styles/PostDetails.css';
+import '../components/PostDetails.css';
 
 const App = ({ Component, pageProps }: AppProps) => (
     <div className="App">
@@ -13,11 +16,13 @@ const App = ({ Component, pageProps }: AppProps) => (
                 </h1>
             </Link>
             <h3 className="App__sub-title">
-                Quantitative Analysis of Gaming
+                {TAGLINE}
             </h3>
         </header>
         <main className="App__page">
-            <Component {...pageProps} />
+            <MDXProvider components={{ a: LinkToNewTab }} >
+                <Component {...pageProps} />
+            </MDXProvider>
         </main>
     </div>
 );

@@ -17,6 +17,7 @@
 
 .PostDetails__title {
     grid-area: title;
+    width: max-content;
 }
 
 .PostDetails__blurb {
@@ -37,4 +38,10 @@
 
 .PostDetails__date:first-child {
     margin-right: 10px;
+}
+
+@media (max-width: 1200px) {
+    .PostDetails__title {
+        width: auto;
+    }
 }

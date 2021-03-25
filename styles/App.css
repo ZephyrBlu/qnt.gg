@@ -1,10 +1,10 @@
 .App {
     width: 40%;
-    margin: 0 auto;
+    margin: 20px auto 40px;
 }
 
 .App__header {
-    margin: 20px auto 40px;
+    margin: 0 auto 40px;
 }
 
 .App__title {
@@ -13,4 +13,14 @@
 
 .App__page {
     line-height: 1.5;
+}
+
+.App__page p a {
+    text-decoration: underline;
+}
+
+@media (max-width: 1200px) {
+    .App {
+        width: 60%;
+    }
 }
