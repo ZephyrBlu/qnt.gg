@@ -4,8 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
-    "start": "next start"
+    "build": "next build && next export && node exportStatic.js",
+    "start": "next start",
+    "export": "node exportStatic.js"
   },
   "dependencies": {
     "@mdx-js/loader": "^1.6.22",

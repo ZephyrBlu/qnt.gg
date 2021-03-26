@@ -19,7 +19,7 @@ const Home = ({ posts }) => {
             {postDetails.map(([componentName, postDetails]) => (
                 componentName in posts &&
                     <Fragment key={posts[componentName]}>
-                        {postDetails(true, `/blog/${posts[componentName]}`)}
+                        {postDetails(true, `/${posts[componentName]}`)}
                     </Fragment>
             ))}
         </div>

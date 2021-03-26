@@ -1,5 +1,4 @@
 import Head from 'next/head';
-import Link from 'next/link';
 
 const PostDetails = ({ preview, path, title, blurb, postedAt, updatedAt }: {
     preview?: boolean,
@@ -15,11 +14,9 @@ const PostDetails = ({ preview, path, title, blurb, postedAt, updatedAt }: {
                 <title>{title} | qnt.gg</title>
                 <meta name="viewport" content="initial-scale=1.0, width=device-width" />
             </Head>}
-        <Link href={path}>
-            <h1 className="PostDetails__title">
-                <a>{title}</a>
-            </h1>
-        </Link>
+        <h1 className="PostDetails__title">
+            <a href={path}>{title}</a>
+        </h1>
         {preview && blurb &&
             <p className="PostDetails__blurb">
                 {blurb}
