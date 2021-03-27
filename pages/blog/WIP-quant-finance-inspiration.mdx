@@ -18,14 +18,47 @@ export const postDetails = (preview = false, postPath = '') => (
 *"Quantitative finance is the use of mathematical models and extremely
 large datasets to analyze financial markets and securities"*
 
-At first glance quant finance seems completely unrelated to gaming,
-but after looking at gaming from a slightly different perspective you might
-find that they're more similar than you thought.
+Like the name suggests, quant finance is all about using data to quantify financial trends.
+The goal of a quant (Someone who performs quantitative analysis) is to create models that
+predict these trends, and utitlize them to generate trading strategies.
+
+At first glance quant finance seems completely unrelated to gaming, but after
+looking at gaming from a slightly different perspective you might find that
+they're more similar than you thought.
+
+If you're not familiar with quant finance, don't worry. I'll keep it high level and understandable.
+
+## Predicting Financial Markets
+
+Traditional quantitative finance techniques heavily revolve around time series analysis, since
+that is the format financial data tends to be in (E.g. a chronological list of stock prices).
+
+There are a number of different methods you can use to analyze time series data, but they all
+revolve around the same general ideas. Namely, decomposing trends (E.g. linear, seasonal, etc)
+and fitting a model based on the mean, variance and previous data points in the time series.
+
+These methods are robust to variations to the mean and variance, meaning that many different time series
+can be modelled using these methods. This might make it seem like it should be easy to create
+accurate predictions, but there are other issues with predicting financial markets.
+
+One problem is limited historical data. Since we can't access alternate realities (Yet), there
+is only ever one realization of the time series (I.e. reality). This also makes forecasting (I.e. future prediction)
+tricky because time series are inherently stochastic (I.e. random), so while your model may accurately
+predict the time series over many realizations any single realization may vary significantly.
+
+Another problem is that quants care about generating returns, so simply predicting a time series
+is not that useful. They have to be able to make money while also taking multiple other factors
+into account such as trading fees, overall portfolio construction, entry and exit positions, etc.
+
+There's also the paradoxical situation where by executing your strategy, you end up affecting
+the market and nullifying your predictions.
+
+This is all to say that predicting financial markets is very complicated for various reasons.
+
+Luckily, video games are significantly simpler.
+
+## Video Games and Financial Markets
 
 
-
-- What is quant finance?
 - How is it relevant to games?
 - What can we learn from quant finance?
-- Other possibly relevant areas:
-    - Chess engines
