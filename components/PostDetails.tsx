@@ -4,12 +4,11 @@ interface PostDetails {
     preview?: boolean;
     path: string;
     title: string;
-    blurb: string;
     postedAt: string;
     updatedAt?: string;
 };
 
-const PostDetails = ({ preview, path, title, blurb, postedAt, updatedAt }: PostDetails) => (
+const PostDetails = ({ preview, path, title, postedAt, updatedAt }: PostDetails) => (
     <div className={`PostDetails ${preview ? 'PostDetails--preview': ''}`}>
         {!preview &&
             <Head>
@@ -19,10 +18,6 @@ const PostDetails = ({ preview, path, title, blurb, postedAt, updatedAt }: PostD
         <h1 className="PostDetails__title">
             <a href={path}>{title}</a>
         </h1>
-        {preview && blurb &&
-            <p className="PostDetails__blurb">
-                {blurb}
-            </p>}
         <div className="PostDetails__date-wrapper">
             <div className="PostDetails__date Post__date--posted">
                 Posted: {postedAt}

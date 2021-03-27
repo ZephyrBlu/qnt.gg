@@ -1,0 +1,15 @@
+import { Fragment } from 'react';
+import PostDetails from '../../components/PostDetails';
+
+export const config = { unstable_runtimeJS: false };
+
+export const postDetails = (preview = false, postPath = '') => (
+    <PostDetails
+        preview={preview}
+        path={postPath}
+        title="Predicting Trends in StarCraft 2"
+        postedAt="WIP"
+    />
+);
+
+<Fragment>{postDetails()}</Fragment>

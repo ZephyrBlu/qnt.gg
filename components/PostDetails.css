@@ -8,22 +8,15 @@
 }
 
 .PostDetails--preview {
-    grid-template: repeat(3, max-content) / 1fr;
+    grid-template: repeat(2, max-content) / 1fr;
     grid-template-areas:
     'title'
-    'dates'
-    'blurb';
+    'dates';
 }
 
 .PostDetails__title {
     grid-area: title;
     width: max-content;
-}
-
-.PostDetails__blurb {
-    grid-area: blurb;
-    margin-top: 20px;
-    font-weight: 500;
 }
 
 .PostDetails__date-wrapper {
