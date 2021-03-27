@@ -1,0 +1,89 @@
+import { Fragment } from 'react';
+import PostDetails from '../../components/PostDetails';
+
+export const config = { unstable_runtimeJS: false };
+
+export const postDetails = (preview = false, postPath = '') => (
+    <PostDetails
+        preview={preview}
+        path={postPath}
+        title="Applying Quantitative Finance to Gaming"
+        blurb="Quantitative Finance and Gaming are more similar than you might think"
+        postedAt="WIP"
+    />
+);
+
+<Fragment>{postDetails()}</Fragment>
+
+*"Quantitative finance is the use of mathematical models and extremely
+large datasets to analyze financial markets and securities"*
+
+Like the name suggests, quantitative finance is all about using data to quantify financial trends.
+The goal of a quant (Someone who performs quantitative analysis) is to create models that
+predict these trends, and utitlize them to generate trading strategies.
+
+At first glance quantitative finance seems completely unrelated to gaming, but after
+looking at gaming from a slightly different perspective you might find that
+they're more similar than you thought.
+
+If you're not familiar with quantitative finance, don't worry. I'll keep it high level and understandable.
+
+## Predicting Financial Markets
+
+Traditional quantitative finance techniques heavily revolve around time series analysis, since
+that is the format financial data tends to be in (E.g. a chronological list of stock prices).
+
+There are a number of different methods you can use to analyze time series data, but they all
+revolve around the same general ideas. Namely, decomposing trends (E.g. linear, seasonal, etc)
+and fitting a model based on the mean, variance and previous data points in the time series.
+
+These methods are robust to variations in the mean and variance, meaning that many different time series
+can be modelled using these methods. This might make it seem like it should be easy to create
+accurate predictions, but there are other issues with predicting financial markets.
+
+One problem is limited historical data. Since we can't access alternate realities (Yet), there
+is only ever one realization of the time series (I.e. reality). This also makes forecasting (I.e. future prediction)
+tricky because time series are inherently stochastic (I.e. random). So while your model may accurately
+predict the time series over many realizations, any individual realization can vary significantly.
+
+Another problem is that quants care about generating returns, so simply predicting a time series
+is not that useful. They have to be able to make money with the strategy while taking multiple other factors
+into account such as managing risk, trading fees, overall portfolio construction/optimization,
+entry and exit positions, etc.
+
+There's also the paradoxical situation where by executing your strategy you end up affecting
+the market and nullifying your predictions.
+
+This is all to say that predicting financial markets is very complicated for various reasons.
+
+Luckily, video games are significantly simpler.
+
+## Gaming and Financial Markets
+
+If we think about what happens over the course of a game, it's quite similar to financial data.
+Players generally have resources which are effectively stochastic processes that may trend
+linearly or cyclically over time.
+
+Game data is also arguably far easier to analyze for a few reasons:
+
+- There are no external factors affecting the variables (E.g. world events)
+- Games are likely to be more standardized than financial markets
+- There are many realizations (I.e. matches) we can use for analysis
+
+We also don't have to worry about the pesky details that I mentioned
+earlier like making money or managing risk.
+
+Another great thing about gaming is that unlike financial data,
+many games have large amounts of easily accessible, fairly rich game data.
+
+There is one obvious downside of game data though. Financial data is very straightforward.
+You have a price, it goes up and down. End of story. Games are not so straightforwards.
+
+The point of a game is to win, but the outcome of a match is generally the product of
+a large number of variables interacting in complex ways throughout the match.
+
+To generate any meaningful models, we will need to formulate useful questions about the game
+and select the variables that best model those questions.
+
+Though you could actually say that this is a strength of game data since we have far more variables
+to play with!
