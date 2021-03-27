@@ -12,7 +12,6 @@ module.exports = withMDX({
       const pageRoutes = await fs.readdir(postsDir).then((posts) => {
         const routes = {};
         posts.forEach((name) => {
-          // don't care about index file
           if (
               name === 'index.js'
               || (

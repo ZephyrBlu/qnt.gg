@@ -15,7 +15,7 @@
     line-height: 1.5;
 }
 
-.App__page p a {
+.App__page a:not(.PostDetails a) {
     text-decoration: underline;
 }
 

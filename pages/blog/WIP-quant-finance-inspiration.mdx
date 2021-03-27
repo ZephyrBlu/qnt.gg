@@ -1,0 +1,31 @@
+import { Fragment } from 'react';
+import PostDetails from '../../components/PostDetails';
+
+export const config = { unstable_runtimeJS: false };
+
+export const postDetails = (preview = false, postPath = '') => (
+    <PostDetails
+        preview={preview}
+        path={postPath}
+        title="Taking Inspiration From Quant Finance"
+        blurb=""
+        postedAt="WIP"
+    />
+);
+
+<Fragment>{postDetails()}</Fragment>
+
+*"Quantitative finance is the use of mathematical models and extremely
+large datasets to analyze financial markets and securities"*
+
+At first glance quant finance seems completely unrelated to gaming,
+but after looking at gaming from a slightly different perspective you might
+find that they're more similar than you thought.
+
+
+
+- What is quant finance?
+- How is it relevant to games?
+- What can we learn from quant finance?
+- Other possibly relevant areas:
+    - Chess engines

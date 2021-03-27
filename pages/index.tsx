@@ -16,7 +16,7 @@ const Home = ({ posts }: { posts: string[] }) => {
                 <title>{TAGLINE} | qnt.gg</title>
                 <meta name="viewport" content="initial-scale=1.0, width=device-width" />
             </Head>
-            {postDetails.map(([componentName, postDetails]) => (
+            {postDetails.reverse().map(([componentName, postDetails]) => (
                 componentName in posts &&
                     <Fragment key={posts[componentName]}>
                         {postDetails(true, `/${posts[componentName]}`)}
