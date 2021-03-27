@@ -3,7 +3,6 @@ const withMDX = require('@next/mdx')({
 });
 
 module.exports = withMDX({
-  // trailingSlash: true,
   pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'mdx'],
   exportPathMap: async () => ({
     '/': { page: '/' },

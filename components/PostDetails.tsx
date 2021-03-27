@@ -1,13 +1,15 @@
 import Head from 'next/head';
 
-const PostDetails = ({ preview, path, title, blurb, postedAt, updatedAt }: {
-    preview?: boolean,
-    path: string,
-    title: string,
-    blurb: string,
-    postedAt: string,
-    updatedAt?: string,
-}) => (
+interface PostDetails {
+    preview?: boolean;
+    path: string;
+    title: string;
+    blurb: string;
+    postedAt: string;
+    updatedAt?: string;
+};
+
+const PostDetails = ({ preview, path, title, blurb, postedAt, updatedAt }: PostDetails) => (
     <div className={`PostDetails ${preview ? 'PostDetails--preview': ''}`}>
         {!preview &&
             <Head>

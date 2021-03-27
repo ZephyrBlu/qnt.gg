@@ -5,7 +5,7 @@ import Head from 'next/head';
 import { TAGLINE } from '../constants';
 import * as postDetailObjects from './blog';
 
-const Home = ({ posts }) => {
+const Home = ({ posts }: { posts: string[] }) => {
     const postDetails = Object.entries(postDetailObjects).filter(([name, _]) => (
         name !== 'default'
     ));

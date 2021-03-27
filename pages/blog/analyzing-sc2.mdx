@@ -15,10 +15,8 @@ export const postDetails = (preview = false, postPath = '') => (
 
 <Fragment>{postDetails()}</Fragment>
 
-## In The Beginning
-
 For a couple of years now I've been focusing my energy on thinking about how to
-analyze StarCraft 2 (SC2).
+analyze StarCraft 2 (SC2) games.
 
 [I built tooling](https://github.com/ZephyrBlu/zephyrus-sc2-parser) to help me
 extract data from games, created [my own analysis website](https://zephyrus.gg)
@@ -29,7 +27,7 @@ At first it was just for fun because I like playing around with data, but in the
 I've tried to hone in on how I can help players intuitively understand the game and
 how to improve.
 
-This is a tough problem. SC2 is complicated and highly contextual. Giving advice to other
+This is a tough problem. SC2 is complicated and highly contextual, so giving advice to other
 players can be difficult because of the large amount of caveats based on the situation.
 
 Traditionally, analysis for video games has been limited to basic summary statistics.
@@ -38,7 +36,7 @@ Needless to say, this isn't very helpful.
 
 But how can we improve this?
 
-## The Problem 
+## The Problem with Summary Statistics
 
 First of all, why *aren't* summary statistics good enough?
 
@@ -68,7 +66,7 @@ This is because the context of a game is noisy. There are a lot of things happen
 are important for analyzing your games. We need to strike a balance between the **high context** of games and
 the **low context** of raw numbers, while presenting the information in an understandable manner.
 
-## Another Problem: Consistency
+## Context Isn't Enough
 
 So far I've discussed making contextual information more accessible for players who don't
 already have much game sense, but what about mid skill players who have *some* game sense
@@ -90,7 +88,7 @@ The only approach I've seen to improving your consistency is to choose a specifi
 the game to focus on and make that your sole objective, then repeat this. This does work,
 but it can be hard to figure out what the most important areas of your play to focus on are.
 
-## Solutions
+## Improving Analytics
 
 All of this talk is great, but what really matters is getting shit done. So here are some ideas
 I'm actively refining and implementing to present highly contextual information in an
