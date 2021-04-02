@@ -1,0 +1,27 @@
+import { Fragment } from 'react';
+import PostDetails from '../../components/PostDetails';
+
+export const config = { unstable_runtimeJS: false };
+
+export const postDetails = (preview = false, postPath = '') => (
+    <PostDetails
+        preview={preview}
+        path={postPath}
+        title="Optimal Ultimate Usage in Overwatch"
+        postedAt="WIP"
+    />
+);
+
+<Fragment>{postDetails()}</Fragment>
+
+- What is the optimal frequency to use your ultimate at?
+- Assumes no synergy between ultimates
+- Ultimates have intrinsic value (Expected number of kills)
+- Time value decays over time while ultimate is unused
+- Value taking decay into account over one half-life is 0.5 * expected number of kills
+- Why 0.5? Because it's the time it takes to charge a 2nd ultimate,
+therefore the expected value of it needs to double
+- Equations for modelling value (t and ult charge in sec):
+- Asymptotic: vr = vi / ((t / ult charge) + 1)
+- Exponential decay: vr = vi * e^(-(ln(2) / ult charge) * t)
+- Inverse decay equations to see what the required value at t is to equal expected value
