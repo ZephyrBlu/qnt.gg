@@ -7,7 +7,7 @@ export const postDetails = (preview = false, postPath = '') => (
     <PostDetails
         preview={preview}
         path={postPath}
-        title="What is 1000 Minerals Really Worth?"
+        title="The Cost of Banking Resources in StarCraft 2"
         postedAt="WIP"
     />
 );
@@ -17,17 +17,19 @@ export const postDetails = (preview = false, postPath = '') => (
 StarCraft 2 players intuitively understand the value of resources and that it's optimal to spend them
 efficiently, but how much does it really cost to bank resources?
 
-We'll answer this question by analyzing Resource Collection Rate and applying an idea from the concept
-of Time Value of Money. This concept is very intuitive, you'd rather have money now than
-later because of things like interest and the ability to invest the money.
+We'll answer this question by analyzing Resource Collection Rate, applying an idea from the concept
+of Time Value of Money and then analyzing some pro games.
 
 ## The Time Value of Money
+
+This concept is very intuitive, you'd rather have money now than
+later because of things like interest and the ability to invest the money.
 
 The equation for Time Value of Money is as follows:
 
     Vp = Vf / (1 + r)
 
-Where Vp is the present value, Vf is the future value and r is the discount rate. Discount rate
+Where `Vp` is the present value, `Vf` is the future value and `r` is the discount rate. Discount rate
 is usually the interest rate, but for us it will obviously be something else.
 
 Although there's no interest in StarCraft 2 and the Time Value of Money does not directly apply,
@@ -38,19 +40,17 @@ The way I chose to approach this is through change in Resource Collection Rate:
 
     r = (Rt / Rt-1) - 1
 
-Where r is the discount rate and Rt is the Resource Collection Rate at time t.
+Where `r` is the discount rate and `Rt` is the Resource Collection Rate at time `t`.
 This calculates the percentage change in Resource Collection Rate from the last data point
 to the current data point.
 
-What this means is that we expect the value of our resources to be r% more or less valuable
-at t+1 because our Resource Collection Rate will have theoretically increased or decreased
-by r%.
+What this means is that we expect the value of our resources to be `r%` more or less valuable
+at `t+1` because our Resource Collection Rate will have theoretically increased or decreased
+by `r%`.
 
 This isn't to say that we don't value resources themselves more or less, but that the relative value of 
 our resources changes since it's easier or harder for us to earn the same amount of resources.
-Perhaps it used to take us 10 seconds to earn 1000 Minerals and now it takes us 6, or vice versa.
-
-Now that we have a discount rate, let's do something with it!
+Perhaps it used to take us 10 seconds to earn 1000 Minerals and now it takes us 6 seconds, or vice versa.
 
 ## Time to Mine
 
@@ -65,5 +65,15 @@ to Mine is as follows:
 It represents exactly what the name suggests. The time (In seconds) it would take you to mine your current
 Unspent Resources, given your current Resource Collection Rate. Resource Collection Rate is
 divided by 60 since it's measured per minute, whereas Time to Mine is measured per second.
+
+This accounts for situations where it's ok to bank resources because you have an insanely
+high Resource Collection Rate and makes your Unspent Resources more interpretable.
+
+## Putting It All Together
+
+Combining this with our discount rate, we can get a more accurate idea of how badly our
+Unspent Resources are burning a hole in our pocket during a game.
+
+    Discounted Unspent Resources = Discount Rate * Time to Mine
 
 
