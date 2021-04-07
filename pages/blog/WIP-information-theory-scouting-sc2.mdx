@@ -17,6 +17,7 @@ export const postDetails = (preview = false, postPath = '') => (
 - Information Theory and Shannon Entropy
 - Apply Shannon Entropy to builds by calculating frequency of appearance
  - Naive calculation, room for improvement by calculating frequency based on time
+  - Accounts for scenarios where common buildings are created at odd times. I.e. rushing a base
  - Another possibility is calculating frequency based on tech requirements being met
 - Use frequencies to generate probabilities
 - Input build from match and calculate entropy for each building
@@ -27,6 +28,7 @@ export const postDetails = (preview = false, postPath = '') => (
 - Issues/Problems
  - Frequency does not always mean surprise. Reapers for example have low frequency
  - Frequencies don't take time into account
+- Entropy of army. Entropy per unit, or per cost?
 
 Depending on your background, your first reaction to that title probably ranged from "I know some of those words"
 to "this makes no sense". Either way, in a few short paragraphs it'll make perfect sense so don't sweat it!
@@ -69,7 +71,7 @@ the unfair coin. Speaking of which, the equation for entropy that we will be usi
     # log base 2
     H(X) = -log2(P(x))
 
-Where `P(x)` is the probability of `x` ocurring. I'm not going to explain this equation, but the TL;DR
+Where `P(x)` is the probability of `x` occurring. I'm not going to explain this equation, but the TL;DR
 is that high probability = low entropy and vice versa. This is also the equation for a single
 event, not a probability distribution like the coins. If you'd like to read more about Shannon Entropy
 you can find information on [it's wikipedia page](https://en.wikipedia.org/wiki/Entropy_(information_theory)).
@@ -105,6 +107,8 @@ based on the relative entropy of each building. High entropy relative to other b
 indicates a surprising event occured, so we might want to scout what happened.
 
 ## Calculating Entropy from IEM Katowice Games
+
+As per the heading of this section, I used all the games from IEM Katowice for this analysis.
 
 First, I made a list of buildings to ignore when counting frequencies since I thought they would
 negatively affect the interpretability of entropy. I eliminated supply buildings (Pylon, Supply Depot),
@@ -166,5 +170,11 @@ There is the case where someone is turtling and making a lot of these buildings,
 sure if the benefit of accounting for this case outweighs the disadvantage of creating more noise
 for other scenarios.
 
-Next, I calculated building frequencies on a per matchup basis to try and increase accuracy and
-then converted those to probabilities.
+After removing these buildings I calculated building frequencies on a per matchup basis to try and increase accuracy and
+then converted the frequencies to probabilities.
+
+To test this out I generated entropy values for the finals games between Reynor and Zest, R04 games
+between Reynor and Maru and RO8 games between TY and PartinG and checked the values to see if
+they made any sort of sense.
+
+
