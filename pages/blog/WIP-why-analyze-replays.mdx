@@ -1,0 +1,29 @@
+import { Fragment } from 'react';
+import PostDetails from '../../components/PostDetails';
+
+export const config = { unstable_runtimeJS: false };
+
+export const postDetails = (preview = false, postPath = '') => (
+    <PostDetails
+        preview={preview}
+        path={postPath}
+        title="Why Do We Analyze Replays?"
+        postedAt="WIP"
+    />
+);
+
+<Fragment>{postDetails()}</Fragment>
+
+- Replay analysis from first principles
+- Why?
+ - To find mistakes. Why?
+  - To learn from mistakes. Why?
+   - less mistakes = higher chance to win game
+   - Constantly iterate on this. Make mistakes, learn, repeat. Fast feedback cycle
+ - To identify poor decision making/mechanics
+  - 2 core components of skill are mechanics and decision making
+  - After base level of mechanical skill, decision making is usually the most important
+  - Mechanics-wise: can see where more improvement is needed and do focused practice
+    - Usually easy to spot since quite deterministic
+  - Decision-wise: identify costly decisions and think about how to improve decision making
+   - Usually highly contextual and can be hard to pinpoint the root issue

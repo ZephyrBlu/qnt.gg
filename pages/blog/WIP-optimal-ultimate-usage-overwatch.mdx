@@ -7,15 +7,25 @@ export const postDetails = (preview = false, postPath = '') => (
     <PostDetails
         preview={preview}
         path={postPath}
-        title="Optimal Ultimate Usage in Overwatch"
+        title="Exploring Optimal Ultimate Usage in Overwatch"
         postedAt="WIP"
     />
 );
 
 <Fragment>{postDetails()}</Fragment>
 
+Assumptions:
+- Assumes no synergy between ultimates (I.e. whole is greater than sum of it's parts)
+- Assumes that the goal of using the ult is kills (I.e. offensive ults)
+- Assumes that optimal ult usage revolves around expected value
+(I.e. use it instead of saving for a play. Not necessarily true, momentum-related usage can be more impactful than value-related usage)
+- Assumes that optimal ult usage is more than having the ult available
+(I.e. better to use it now than save it for a dire situation. Not necessarily true for all ults)
+
+Assumptions mostly narrow down to offensive ultimates that are supposed to generate consistent
+value like Soldier's Tac Visor.
+
 - What is the optimal frequency to use your ultimate at?
-- Assumes no synergy between ultimates
 - Ultimates have intrinsic value (Expected number of kills)
 - Time value decays over time while ultimate is unused
 - Value taking decay into account over one half-life is 0.5 * expected number of kills
@@ -25,3 +35,4 @@ therefore the expected value of it needs to double
 - Asymptotic: vr = vi / ((t / ult charge) + 1)
 - Exponential decay: vr = vi * e^(-(ln(2) / ult charge) * t)
 - Inverse decay equations to see what the required value at t is to equal expected value
+- Calculate vi based on average time t to use ult + expected kills at t

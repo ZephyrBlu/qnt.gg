@@ -1,0 +1,78 @@
+import { Fragment } from 'react';
+import PostDetails from '../../components/PostDetails';
+
+export const config = { unstable_runtimeJS: false };
+
+export const postDetails = (preview = false, postPath = '') => (
+    <PostDetails
+        preview={preview}
+        path={postPath}
+        title="Using Information Theory to Find Critical Scout Timings in StarCraft 2"
+        postedAt="WIP"
+    />
+);
+
+<Fragment>{postDetails()}</Fragment>
+
+- Information Theory and Shannon Entropy
+- Apply Shannon Entropy to builds by calculating frequency of appearance
+ - Naive calculation, room for improvement by calculating frequency based on time
+ - Another possibility is calculating frequency based on tech requirements being met
+- Use frequencies to generate probabilities
+- Input build from match and calculate entropy for each building
+- Generate chart of entropy of each building
+- High entropy = more surprise, so maybe you should find out what's happening!
+- On initial observation, it seems relatively accurate!
+- Tried units as well but doesn't seem as useful
+
+Depending on your background, your first reaction to that title probably ranged from "I know some of those words"
+to "this makes no sense". Either way, in a few short paragraphs it'll make perfect sense so don't sweat it!
+
+First I'll *very* quickly summarize Information Theory, explain the small piece of it we're going
+to utilize (Shannon Entropy) and the idea I had to apply it to StarCraft 2 (SC2).
+
+After that I'll walk through actually applying the idea in practice and what the preliminary
+results looked like.
+
+Lastly, I'll go through some possible improvements and other applications of the idea.
+
+## Shannon Entropy
+
+Information Theory is all about quantifying information and it has numerous applications such
+as error correction, compression and cryptography.
+
+One of *the* core ideas in Information Theory is the concept of entropy (A.k.a Shannon Entropy),
+which is equivalent to uncertainty, information or surprise.
+
+The idea is that the more uncertain an event is, the more information it has. Let's compare a fair
+a fair coin with an unfair one to see why this makes sense.
+
+    # fair coin
+    P(Tails) = 0.5, P(Heads) = 0.5
+
+    # unfair coin
+    P(Tails) = 0.9, P(Heads) = 0.1
+
+If we flip the unfair coin, we expect that it will land on Tails because that's the most likely
+outcome. However, if we flip the fair coin we're not sure whether it will land on Heads or Tails
+because they're equally likely.
+
+In other words, if the unfair coin lands on Tails it's *not very surprising*, whereas the fair
+coin is somewhat surprising no matter what it lands on!
+
+This is reflected in the entropy of these distributions, with the fair coin have a higher entropy than
+the unfair coin.
+
+Relating this back to information, we can view surprise as information because if an unsurprising
+event occurs we have gained little information since we already knew it was likely to occur, and vice
+versa for surprising events.
+
+A common application of entropy is measuring the entropy (I.e. information content!) of text.
+We can measure the frequency of different words or letters, create probabilities based on those frequencies
+and then calculate the entropy of arbitrary text.
+
+An example of this might be using the alphabet as our source of frequency/probability and measuring
+the entropy of some text. Another example might be using a whole pile of books as the source
+of frequency/probability for words, then measuring the entropy of a book.
+
+## 
