@@ -24,6 +24,9 @@ export const postDetails = (preview = false, postPath = '') => (
 - High entropy = more surprise, so maybe you should find out what's happening!
 - On initial observation, it seems relatively accurate!
 - Tried units as well but doesn't seem as useful
+- Issues/Problems
+ - Frequency does not always mean surprise. Reapers for example have low frequency
+ - Frequencies don't take time into account
 
 Depending on your background, your first reaction to that title probably ranged from "I know some of those words"
 to "this makes no sense". Either way, in a few short paragraphs it'll make perfect sense so don't sweat it!
@@ -85,17 +88,83 @@ of frequency/probability for words, then measuring the entropy of a book.
 
 ## Applying Entropy to StarCraft 2
 
-So, how does this relate to scouting?! Well, scouting is about gathering information.
-Maybe if we quantify the amount of information in the game at each point in time then we could
-figure out when there's a lot of new information, and that seems like good time to scout.
+So how does this relate to scouting? Well, scouting is about gathering information.
+Maybe if we can quantify the amount of information in the game at each point in time then we
+can figure out when there's a lot of new information, and that seems like good time to scout.
 
 Figuring out what build your opponent is doing is generally a pretty important piece of
-information, so we'll start trying to measure the entropy of that (I'll talk about units later).
+information, so we'll start by trying to measure the entropy of that (I'll talk about units later).
 
 If we think about a build, it's just a list of different buildings which is basically the same
-thing as a list of words. So we could just measure the frequency of each building, calculate probabilities
-based on those frequencies and then use those to calculate the entropy of each building.
+thing as a list of words. We can measure the frequency of each building over many games,
+calculate probabilities based on those frequencies and then use those to calculate the
+entropy of each building in a build.
 
-## Measuring the Information Content of StarCraft 2 Builds
+Then we can plot the entropy of each building against time and judge if it's a good time to scout
+based on the relative entropy of each building. High entropy relative to other buildings
+indicates a surprising event occured, so we might want to scout what happened.
 
+## Calculating Entropy from IEM Katowice Games
 
+First, I made a list of buildings to ignore when counting frequencies since I thought they would
+negatively affect the interpretability of entropy. I eliminated supply buildings (Pylon, Supply Depot),
+gas collectors and some support buildings like Missile Turrets and Cannons.
+
+This is the full list:
+
+    IGNORE_OBJECTS = [
+        'Pylon',
+        'Overlord',
+        'SupplyDepot',
+        'MissileTurret',
+        'SpineCrawler',
+        'SporeCrawler',
+        'PhotonCannon',
+        'Interceptor',
+        'MULE',
+        'AutoTurret',
+        'Larva',
+        'Egg',
+        'LocustMP',
+        'LocustMPPrecursor',
+        'LocustMPFlying',
+        'ShieldBattery',
+        'Bunker',
+        'CreepTumor',
+        'CreepTumorQueen',
+        'CreepTumorBurrowed',
+        'Broodling',
+        'BroodlingEscort',
+
+        # remove gas buildings and workers to reduce noise
+        'Extractor',
+        'Assimilator',
+        'Refinery',
+        'Probe',
+        'Drone',
+        'SCV',
+    ]
+
+And here's a quick breakdown of my reasoning for eliminating each of these types:
+
+### Supply Buildings
+
+Supply buildings are so abundant that including them would heavily affect the frequency of all
+buildings. We also don't generally care that much about supply buildings, so it seems like a lot
+of noise for little information.
+
+### Gas Collectors
+
+At first I included gas collectors in the analysis, but I found that they were too common and
+although gas timings can be important, any given gas collector is **not** important so I scrapped them.
+
+### Support Buildings
+
+Because this analysis is focused on scouting, I thought that removing these buildings would reduce
+the amount of noise since we generally don't care about these types of buildings when we're scouting.
+There is the case where someone is turtling and making a lot of these buildings, but I'm not
+sure if the benefit of accounting for this case outweighs the disadvantage of creating more noise
+for other scenarios.
+
+Next, I calculated building frequencies on a per matchup basis to try and increase accuracy and
+then converted those to probabilities.
