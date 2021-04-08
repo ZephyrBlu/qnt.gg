@@ -121,6 +121,7 @@ This is the full list:
         'Overlord',
         'SupplyDepot',
         'MissileTurret',
+        'SensorTower',
         'SpineCrawler',
         'SporeCrawler',
         'PhotonCannon',
@@ -139,6 +140,7 @@ This is the full list:
         'CreepTumorBurrowed',
         'Broodling',
         'BroodlingEscort',
+        'NydusCanal',
 
         # remove gas buildings and workers to reduce noise
         'Extractor',
@@ -150,6 +152,8 @@ This is the full list:
     ]
 
 And here's a quick breakdown of my reasoning for eliminating each of these types:
+
+---
 
 ### Supply Buildings
 
@@ -170,11 +174,23 @@ There is the case where someone is turtling and making a lot of these buildings,
 sure if the benefit of accounting for this case outweighs the disadvantage of creating more noise
 for other scenarios.
 
+---
+
 After removing these buildings I calculated building frequencies on a per matchup basis to try and increase accuracy and
 then converted the frequencies to probabilities.
 
-To test this out I generated entropy values for the finals games between Reynor and Zest, R04 games
-between Reynor and Maru and RO8 games between TY and PartinG and checked the values to see if
-they made any sort of sense.
+To test out my theory in practice I generated entropy values for the finals games between Reynor and Zest,
+RO4 games between Reynor and Maru and RO8 games between TY and PartinG and checked the values
+to see if they made any sort of sense.
+
+Looking at the values, they actually seemed to line up well! Buildings that you would naturally
+think are more important such as initial and later game tech choices had much higher entropies than
+generic production buildings.
+
+An interesting unexpected result that I didn't think about was that Terran add-ons are counted as
+their own building as a unique building + add-on pair (E.g. StarportReactor). Since these combinations
+are relatively rare compared to other buildings they also have quite high entropy, which makes
+sense when you think about it because add-on choice is actually quite important and
+can signal different builds!
 
 
