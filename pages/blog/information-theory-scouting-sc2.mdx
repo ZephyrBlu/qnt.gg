@@ -8,32 +8,16 @@ export const postDetails = (preview = false, postPath = '') => (
         preview={preview}
         path={postPath}
         title="Using Information Theory to Find Critical Scout Timings in StarCraft 2"
-        postedAt="WIP"
+        postedAt="08/04/21"
     />
 );
 
 <Fragment>{postDetails()}</Fragment>
 
-- Information Theory and Shannon Entropy
-- Apply Shannon Entropy to builds by calculating frequency of appearance
-    - Naive calculation, room for improvement by calculating frequency based on time
-        - Accounts for scenarios where common buildings are created at odd times. I.e. rushing a base
-    - Another possibility is calculating frequency based on tech requirements being met
-- Use frequencies to generate probabilities
-- Input build from match and calculate entropy for each building
-- Generate chart of entropy of each building
-- High entropy = more surprise, so maybe you should find out what's happening!
-- On initial observation, it seems relatively accurate!
-- Tried units as well but doesn't seem as useful
-- Issues/Problems
-    - Frequency does not always mean surprise. Reapers for example have low frequency
-    - Frequencies don't take time into account
-- Entropy of army. Entropy per unit, or per cost?
+Depending on your background, your first reaction to the title may have ranged from "I know some of those words"
+to "this makes no sense". Either way, in a few paragraphs it will (Hopefully) make perfect sense so don't sweat it!
 
-Depending on your background, your first reaction to that title probably ranged from "I know some of those words"
-to "this makes no sense". Either way, in a few short paragraphs it'll make perfect sense so don't sweat it!
-
-First I'll explain the small piece of Information Theory we're going to utilize
+First, I'll explain the small piece of Information Theory we're going to utilize
 (Shannon Entropy) and the idea I had to apply it to StarCraft 2 (SC2).
 
 Then I'll walk through actually applying the idea in practice and what the preliminary
@@ -43,8 +27,8 @@ Lastly, I'll go through some possible improvements of my method and other applic
 
 ## Shannon Entropy
 
-Information Theory is all about quantifying information and it has numerous applications such
-as error correction, compression and cryptography.
+Information Theory is all about quantifying information, and it has numerous applications in areas
+such as error correction, compression and cryptography.
 
 One of *the* core ideas in Information Theory is the concept of entropy (A.k.a Shannon Entropy),
 which is equivalent to uncertainty, information or surprise.
@@ -81,8 +65,8 @@ event occurs we haven't gained much information since we already knew it was lik
 versa for surprising events.
 
 A common application of entropy is measuring the entropy (I.e. information content!) of text.
-We can measure the frequency of different words or letters, create probabilities based on those frequencies
-and then calculate the entropy of arbitrary text.
+We can measure the frequency of different words or letters, then create probabilities based on those frequencies
+and calculate the entropy of some text.
 
 An example of this is using the alphabet as our source of frequency/probability and measuring
 the entropy of some text. Another example is using a whole pile of books as the source
@@ -92,15 +76,15 @@ of frequency/probability for words, then measuring the entropy of a book.
 
 So how does this relate to scouting? Well, scouting is about gathering information.
 Maybe if we can quantify the amount of information in the game at each point in time then we
-can figure out when there's a lot of new information, and that seems like good time to scout.
+can figure out when there's a lot of new information being created, and that seems like good time to scout.
 
 Figuring out what build your opponent is doing is generally a pretty important piece of
 information, so we'll start by trying to measure the entropy of that (I'll talk about units later).
 
-If we think about a build, it's just a list of different buildings which is basically the same
-thing as a list of words. We can measure the frequency of each building over many games,
-calculate probabilities based on those frequencies and then use those to calculate the
-entropy of each building in a build.
+If we think about what a build is it's just a list of buildings, which is literally the same
+thing as a list of words. We can measure the frequency of each building over many games, then
+calculate probabilities based on those frequencies and use those to calculate the
+entropy of each building in a particular game.
 
 Then we can plot the entropy of each building against time and judge if it's a good time to scout
 based on the relative entropy of each building. High entropy relative to other buildings
@@ -114,7 +98,7 @@ First, I made a list of buildings to ignore when counting frequencies since I th
 negatively affect the interpretability of entropy. I eliminated supply buildings (Pylon, Supply Depot),
 gas collectors and some support buildings like Missile Turrets and Cannons.
 
-This is the full list:
+This is the full list of buildings I ignored:
 
     IGNORE_OBJECTS = [
         'Pylon',
@@ -177,27 +161,27 @@ for other scenarios.
 
 ---
 
-After removing these buildings I calculated building frequencies on a per matchup basis to try and increase accuracy and
+After removing these buildings I calculated building frequencies on a per matchup basis to try and increase accuracy,
 then converted the frequencies to probabilities.
 
 To test out my theory in practice I generated entropy values for the Finals games between Reynor and Zest,
-RO4 games between Reynor and Maru and RO8 games between TY and PartinG and checked the values
-to see if they made any sort of sense.
+RO4 games between Reynor and Maru and RO8 games between TY and PartinG and gave the values
+a cursory check to see if they made any sort of sense.
 
 Looking at the values, they actually seemed to line up well! Buildings that you would naturally
 think are more important such as tech choices had much higher entropies than generic production buildings.
-Right now I haven't charted these values so I have nothing to show,
+Right now I haven't charted these values so I have nothing to show yet,
 **<span style={{ textDecoration: 'underline' }}>but I plan to visualize this soon</span>**.
 
-An interesting unexpected result that I didn't think about was Terran add-ons being counted as
+An interesting unexpected result that I didn't think about is Terran add-ons being counted as
 a unique building + add-on pair (E.g. `StarportReactor`). Since these combinations are
-relatively rare compared to other buildings they also tend to have quite high entropy, which
-makes sense when you think about it because add-on choice is actually quite important and
-can signal different builds!
+relatively rare compared to other buildings they tend to have quite high entropy, which
+feels like a relatively good indicator when you think about it because add-on choice is actually
+quite important and can signal different builds!
 
 ## Improvements and Future Applications
 
-The main issue I see with the current methdology is naively calculating frequencies based on
+The main issue I see with the current methodology is naively calculating frequencies based on
 the overall game. A couple of ideas for mitigating this are analyzing frequency based on time and analyzing frequency
 conditional to tech requirements being met.
 
@@ -205,29 +189,29 @@ For time-based frequency, this could be achieved by batching time into discrete 
 and then analyzing the frequency of buildings in these periods. This may help identify activity
 which is build/time dependent such as non-standard builds or aggressive timings.
 
-For frequency based on tech requirements this could be achieved by creating dependencies for
-each building which include the required tech buildings, and separately recording buildings from
-between when new tech buildings were created. While probably more 'correct', this seems quite a complex solution though.
+For frequency based on tech requirements, this could be achieved by creating dependencies for
+each building which include the required tech buildings and record building frequencies
+in the periods between when new tech buildings were created. While probably more 'correct',
+this seems like quite a convoluted and complex solution.
 
-On the other side of things, an obvious application is units/army. The issue with this is that
+On the other side of things, an obvious application is units/army. The issue is that
 units serve quite a different purpose to buildings. Buildings tend to be an investment, whereas
 units are disposable.
 
 A possible approach to analyzing unit entropy is to measure frequencies across the entire game,
 but to batch entropy based on discrete 30sec periods. The idea here is to find points in time
-when players suddenly produce many units, which might mean you want to scout them and see if they
-are planning an attack.
+when players suddenly produce many surprising units, which might mean you want to scout them
+and see if they are planning an attack or turtling up.
 
-This is similar to simply batching by supply or army value, but the difference is that we are
+This is similar to batching by supply or army value, but the difference is that we are
 judging the units on how surprising it would be to see them. You wouldn't be surprised if a Protoss
 was making Archons and Immortals regardless of their high supply and resource cost, but you might
 be in for a rude surprise if you didn't scout something like a fleet of Carriers, Void Rays or Phoenix!
-
 This approach may also benefit from the proposed batched frequency improvement. 
 
-Another possible application of entropy to army is a measurement such as entropy per unit/resource/supply.
+Another possible application of entropy to units/army is a measurement such as entropy per unit/resource/supply.
 Perhaps this could be an informative and interpretable way to measure and compare unit compositions
 since it effectively normalizes across all units instead of trying to compare apples to oranges.
 
-I'm excited to see where this goes since I think this idea is extremely flexible and applicable
-to many different areas of both SC2 and other games.
+I'm excited to see where this goes since I think general idea of information entropy is
+extremely flexible and applicable to many different areas of both SC2 and other games.
