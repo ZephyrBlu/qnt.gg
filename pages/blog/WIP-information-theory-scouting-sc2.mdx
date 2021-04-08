@@ -16,9 +16,9 @@ export const postDetails = (preview = false, postPath = '') => (
 
 - Information Theory and Shannon Entropy
 - Apply Shannon Entropy to builds by calculating frequency of appearance
- - Naive calculation, room for improvement by calculating frequency based on time
-  - Accounts for scenarios where common buildings are created at odd times. I.e. rushing a base
- - Another possibility is calculating frequency based on tech requirements being met
+    - Naive calculation, room for improvement by calculating frequency based on time
+        - Accounts for scenarios where common buildings are created at odd times. I.e. rushing a base
+    - Another possibility is calculating frequency based on tech requirements being met
 - Use frequencies to generate probabilities
 - Input build from match and calculate entropy for each building
 - Generate chart of entropy of each building
@@ -26,8 +26,8 @@ export const postDetails = (preview = false, postPath = '') => (
 - On initial observation, it seems relatively accurate!
 - Tried units as well but doesn't seem as useful
 - Issues/Problems
- - Frequency does not always mean surprise. Reapers for example have low frequency
- - Frequencies don't take time into account
+    - Frequency does not always mean surprise. Reapers for example have low frequency
+    - Frequencies don't take time into account
 - Entropy of army. Entropy per unit, or per cost?
 
 Depending on your background, your first reaction to that title probably ranged from "I know some of those words"
@@ -170,6 +170,7 @@ although gas timings can be important, any given gas collector is **not** import
 
 Because this analysis is focused on scouting, I thought that removing these buildings would reduce
 the amount of noise since we generally don't care about these types of buildings when we're scouting.
+
 There is the case where someone is turtling and making a lot of these buildings, but I'm not
 sure if the benefit of accounting for this case outweighs the disadvantage of creating more noise
 for other scenarios.
@@ -179,18 +180,54 @@ for other scenarios.
 After removing these buildings I calculated building frequencies on a per matchup basis to try and increase accuracy and
 then converted the frequencies to probabilities.
 
-To test out my theory in practice I generated entropy values for the finals games between Reynor and Zest,
+To test out my theory in practice I generated entropy values for the Finals games between Reynor and Zest,
 RO4 games between Reynor and Maru and RO8 games between TY and PartinG and checked the values
 to see if they made any sort of sense.
 
 Looking at the values, they actually seemed to line up well! Buildings that you would naturally
-think are more important such as initial and later game tech choices had much higher entropies than
-generic production buildings.
+think are more important such as tech choices had much higher entropies than generic production buildings.
+Right now I haven't charted these values so I have nothing to show,
+**<span style={{ textDecoration: 'underline' }}>but I plan to visualize this soon</span>**.
 
-An interesting unexpected result that I didn't think about was that Terran add-ons are counted as
-their own building as a unique building + add-on pair (E.g. StarportReactor). Since these combinations
-are relatively rare compared to other buildings they also have quite high entropy, which makes
-sense when you think about it because add-on choice is actually quite important and
+An interesting unexpected result that I didn't think about was Terran add-ons being counted as
+a unique building + add-on pair (E.g. `StarportReactor`). Since these combinations are
+relatively rare compared to other buildings they also tend to have quite high entropy, which
+makes sense when you think about it because add-on choice is actually quite important and
 can signal different builds!
 
+## Improvements and Future Applications
 
+The main issue I see with the current methdology is naively calculating frequencies based on
+the overall game. A couple of ideas for mitigating this are analyzing frequency based on time and analyzing frequency
+conditional to tech requirements being met.
+
+For time-based frequency, this could be achieved by batching time into discrete 30sec periods
+and then analyzing the frequency of buildings in these periods. This may help identify activity
+which is build/time dependent such as non-standard builds or aggressive timings.
+
+For frequency based on tech requirements this could be achieved by creating dependencies for
+each building which include the required tech buildings, and separately recording buildings from
+between when new tech buildings were created. While probably more 'correct', this seems quite a complex solution though.
+
+On the other side of things, an obvious application is units/army. The issue with this is that
+units serve quite a different purpose to buildings. Buildings tend to be an investment, whereas
+units are disposable.
+
+A possible approach to analyzing unit entropy is to measure frequencies across the entire game,
+but to batch entropy based on discrete 30sec periods. The idea here is to find points in time
+when players suddenly produce many units, which might mean you want to scout them and see if they
+are planning an attack.
+
+This is similar to simply batching by supply or army value, but the difference is that we are
+judging the units on how surprising it would be to see them. You wouldn't be surprised if a Protoss
+was making Archons and Immortals regardless of their high supply and resource cost, but you might
+be in for a rude surprise if you didn't scout something like a fleet of Carriers, Void Rays or Phoenix!
+
+This approach may also benefit from the proposed batched frequency improvement. 
+
+Another possible application of entropy to army is a measurement such as entropy per unit/resource/supply.
+Perhaps this could be an informative and interpretable way to measure and compare unit compositions
+since it effectively normalizes across all units instead of trying to compare apples to oranges.
+
+I'm excited to see where this goes since I think this idea is extremely flexible and applicable
+to many different areas of both SC2 and other games.
