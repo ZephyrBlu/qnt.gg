@@ -24,7 +24,7 @@ const PostDetails = ({ preview, path, title, postedAt, updatedAt }: PostDetails)
             </div>
             {updatedAt &&
                 <div className="PostDetails__date Post__date--updated">
-                    (Last Updated: {updatedAt})
+                    Updated: {updatedAt}
                 </div>}
             </div>
     </div>

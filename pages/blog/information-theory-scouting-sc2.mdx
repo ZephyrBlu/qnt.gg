@@ -9,93 +9,93 @@ export const postDetails = (preview = false, postPath = '') => (
         path={postPath}
         title="Using Information Theory to Find Critical Scout Timings in StarCraft 2"
         postedAt="08/04/21"
+        updatedAt="12/04/21"
     />
 );
 
 <Fragment>{postDetails()}</Fragment>
 
+*Update: Entropy is specifically related to probability distributions.
+Calculations for individual events relate to **information content** (I.e. Shannon Information)
+not entropy. The article has been updated to reflect this.*
+
 Depending on your background, your first reaction to the title may have ranged from "I know some of those words"
 to "this makes no sense". Either way, in a few paragraphs it will (Hopefully) make perfect sense so don't sweat it!
 
 First, I'll explain the small piece of Information Theory we're going to utilize
-(Shannon Entropy) and the idea I had to apply it to StarCraft 2 (SC2).
+(Shannon Information) and the idea I had to apply it to StarCraft 2 (SC2).
 
 Then I'll walk through actually applying the idea in practice and what the preliminary
 results looked like.
 
 Lastly, I'll go through some possible improvements of my method and other applications of the idea.
 
-## Shannon Entropy
+## Shannon Information
 
 Information Theory is all about quantifying information, and it has numerous applications in areas
 such as error correction, compression and cryptography.
 
-One of *the* core ideas in Information Theory is the concept of entropy (A.k.a Shannon Entropy),
-which is equivalent to uncertainty, information or surprise.
+One of *the* core ideas in Information Theory is the concept of information content (A.k.a Shannon Information),
+which is equivalent self-information or surprise.
 
-The idea is that the more uncertain an event is, the more information it has. Let's compare
-a fair coin with an unfair one to see why this makes sense.
-
-    # fair coin
-    P(Tails) = 0.5, P(Heads) = 0.5
+The idea is that the more surprising an event is, the more information it has. Let's compare
+the outcomes of an unfair coin to see why this makes sense.
 
     # unfair coin
     P(Tails) = 0.9, P(Heads) = 0.1
 
 If we flip the unfair coin, we expect that it will land on Tails because that's the most likely
-outcome. However, if we flip the fair coin we're not sure whether it will land on Heads or Tails
-because they're equally likely.
+outcome. However, if the unfair coin lands on Heads instead it's pretty surprising.
 
-In other words, if the unfair coin lands on Tails it's *not very surprising* whereas the fair
-coin is somewhat surprising no matter what it lands on!
-
-This is reflected in the entropy of these distributions. The fair coin has a higher entropy than
-the unfair coin. Speaking of which, the equation for entropy that we will be using is as follows:
+This is reflected in the Shannon Information of these outcomes. The Heads event has a much larger
+value than the Tails event. Speaking of which, the equation for Shannon Information that we will be using is as follows:
 
     # log base 2
-    H(X) = -log2(P(x))
+    I(X) = -log2(P(x))
 
 Where `P(x)` is the probability of `x` occurring. I'm not going to explain this equation, but the TL;DR
-is that high probability = low entropy and vice versa. This is also the equation for a single
-event, not a probability distribution like the coins. If you'd like to read more about Shannon Entropy
-you can find information on [it's wikipedia page](https://en.wikipedia.org/wiki/Entropy_(information_theory)).
+is that high probability = low information and vice versa. This is also the equation for a single
+event, not a probability distribution.
+
+If you'd like to read more about Shannon Information you can find information on [it's wikipedia page](https://en.wikipedia.org/wiki/Information_content).
+For information content in probability distributions (I.e. Entropy) [this is the page you want to look at](https://en.wikipedia.org/wiki/Entropy_(information_theory)).
 
 Relating this back to information, we can view surprise as information because if an unsurprising
 event occurs we haven't gained much information since we already knew it was likely to occur, and vice
 versa for surprising events.
 
-A common application of entropy is measuring the entropy (I.e. information content!) of text.
+A common application of Shannon Information is measuring the information content of text.
 We can measure the frequency of different words or letters, then create probabilities based on those frequencies
-and calculate the entropy of some text.
+and calculate how much information some text contains.
 
 An example of this is using the alphabet as our source of frequency/probability and measuring
-the entropy of some text. Another example is using a whole pile of books as the source
-of frequency/probability for words, then measuring the entropy of a book.
+the information content of some text. Another example is using a whole pile of books as the source
+of frequency/probability for words, then measuring the information content of a book.
 
-## Applying Entropy to StarCraft 2
+## Measuring Information Content in StarCraft 2
 
 So how does this relate to scouting? Well, scouting is about gathering information.
 Maybe if we can quantify the amount of information in the game at each point in time then we
 can figure out when there's a lot of new information being created, and that seems like good time to scout.
 
 Figuring out what build your opponent is doing is generally a pretty important piece of
-information, so we'll start by trying to measure the entropy of that (I'll talk about units later).
+information, so we'll start by trying to measure the information content of that (I'll talk about units later).
 
 If we think about what a build is it's just a list of buildings, which is literally the same
 thing as a list of words. We can measure the frequency of each building over many games, then
 calculate probabilities based on those frequencies and use those to calculate the
-entropy of each building in a particular game.
+information content of each building in a particular game.
 
-Then we can plot the entropy of each building against time and judge if it's a good time to scout
-based on the relative entropy of each building. High entropy relative to other buildings
+Then we can plot the information content of each building against time and judge if it's a good time to scout
+based on the relative information content of each building. High information content relative to other buildings
 indicates a surprising event occured, so we might want to scout what happened.
 
-## Calculating Entropy from IEM Katowice Games
+## Calculating Information Content from IEM Katowice Games
 
 As per the heading of this section, I used all the games from IEM Katowice for this analysis.
 
 First, I made a list of buildings to ignore when counting frequencies since I thought they would
-negatively affect the interpretability of entropy. I eliminated supply buildings (Pylon, Supply Depot),
+negatively affect the interpretability of information content. I eliminated supply buildings (Pylon, Supply Depot),
 gas collectors and some support buildings like Missile Turrets and Cannons.
 
 This is the full list of buildings I ignored:
@@ -164,7 +164,7 @@ for other scenarios.
 After removing these buildings I calculated building frequencies on a per matchup basis to try and increase accuracy,
 then converted the frequencies to probabilities.
 
-To test out my theory in practice I generated entropy values for the Finals games between Reynor and Zest,
+To test out my theory in practice I generated information content values for the Finals games between Reynor and Zest,
 RO4 games between Reynor and Maru and RO8 games between TY and PartinG and gave the values
 a cursory check to see if they made any sort of sense.
 
@@ -175,7 +175,7 @@ Right now I haven't charted these values so I have nothing to show yet,
 
 An interesting unexpected result that I didn't think about is Terran add-ons being counted as
 a unique building + add-on pair (E.g. `StarportReactor`). Since these combinations are
-relatively rare compared to other buildings they tend to have quite high entropy, which
+relatively rare compared to other buildings they tend to have quite high information content, which
 feels like a relatively good indicator when you think about it because add-on choice is actually
 quite important and can signal different builds!
 
@@ -198,8 +198,8 @@ On the other side of things, an obvious application is units/army. The issue is 
 units serve quite a different purpose to buildings. Buildings tend to be an investment, whereas
 units are disposable.
 
-A possible approach to analyzing unit entropy is to measure frequencies across the entire game,
-but to batch entropy based on discrete 30sec periods. The idea here is to find points in time
+A possible approach to analyzing unit information content is to measure frequencies across the entire game,
+but to batch them based into discrete 30sec periods. The idea here is to find points in time
 when players suddenly produce many surprising units, which might mean you want to scout them
 and see if they are planning an attack or turtling up.
 
@@ -209,9 +209,9 @@ was making Archons and Immortals regardless of their high supply and resource co
 be in for a rude surprise if you didn't scout something like a fleet of Carriers, Void Rays or Phoenix!
 This approach may also benefit from the proposed batched frequency improvement. 
 
-Another possible application of entropy to units/army is a measurement such as entropy per unit/resource/supply.
+Another possible application of information content to units/army is a measurement such as information content per unit/resource/supply.
 Perhaps this could be an informative and interpretable way to measure and compare unit compositions
 since it effectively normalizes across all units instead of trying to compare apples to oranges.
 
-I'm excited to see where this goes since I think general idea of information entropy is
+I'm excited to see where this goes since I think general idea of information content is
 extremely flexible and applicable to many different areas of both SC2 and other games.

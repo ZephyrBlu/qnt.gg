@@ -30,7 +30,7 @@
 }
 
 .PostDetails__date:first-child {
-    margin-right: 10px;
+    margin-right: 40px;
 }
 
 @media (max-width: 1200px) {
