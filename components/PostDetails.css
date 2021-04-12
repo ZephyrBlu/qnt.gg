@@ -16,7 +16,6 @@
 
 .PostDetails__title {
     grid-area: title;
-    width: max-content;
 }
 
 .PostDetails__date-wrapper {

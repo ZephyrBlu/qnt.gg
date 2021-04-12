@@ -19,6 +19,12 @@
     text-decoration: underline;
 }
 
+@media (max-width: 1400px) {
+    .App {
+        width: 50%;
+    }
+}
+
 @media (max-width: 1200px) {
     .App {
         width: 60%;
